@@ -1,22 +1,52 @@
-const { getSyncClient, agilityConfig } = require('../../agility/agility.config')
-const truncate  = require('truncate-html')
+const {
+  getSyncClient,
+  agilityConfig,
+} = require("../../agility/agility.config");
 
 async function getAgilityContent() {
+  const languageCode = agilityConfig.languageCode;
+  const isPreview = agilityConfig.isPreviewMode;
 
-	const languageCode = agilityConfig.languageCode
-	const isPreview = agilityConfig.isPreviewMode
+  const syncClient = getSyncClient({ isPreview });
 
-	const syncClient = getSyncClient({isPreview})
-	let posts = await syncClient.store.getContentList({ referenceName: "posts", languageCode })
+  // get posts
+  let posts = await syncClient.store.getContentList({
+    referenceName: "posts",
+    languageCode,
+  });
 
-	if (! posts) return {}
+  // get categories
+  let categories = await syncClient.store.getContentList({
+    referenceName: "categories",
+    languageCode,
+  });
 
-    return posts.map(p => {
+  if (!posts) return {};
 
-		p.excerpt = truncate(p.fields.content, { length: 160, decodeEntities: true, stripTags: true, reserveLastWord: true })
+  return posts.map((p) => {
+    // categoryID
+    const categoryID = p.fields?.category?.contentid;
 
-		return p
-	})
+    // find category
+    const category = categories?.find((c) => c.contentID == categoryID);
+
+    // category
+    p.category = category?.fields?.title || "Uncategorized";
+
+    // date
+    p.date = new Date(p.fields.date).toLocaleDateString();
+
+    // title
+    p.title = p.fields.title;
+
+    // slug
+    p.slug = p.fields.slug;
+
+    // image
+    p.image = p.fields.image;
+
+    return p;
+  });
 }
 
 // export for 11ty

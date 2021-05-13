@@ -4,7 +4,7 @@
 	{% if zone === zoneName %}
 		{% for module in  modules  %}
 			{# Render the module based on the module reference name  -ignoring missing module files... #}
-			{% include  "../modules/" + module.module.toLowerCase() + ".njk"  ignore missing %}
+			{% include  "./agility-pageModules/" + module.module.toLowerCase() + ".njk"  ignore missing %}
 		{% endfor %}
 	{% endif %}
 {% endfor %}

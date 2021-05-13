@@ -1,86 +1,101 @@
-const { getSyncClient, agilityConfig } = require('../../agility/agility.config')
-const luxon = require("luxon")
+const {
+  getSyncClient,
+  agilityConfig,
+} = require("../../agility/agility.config");
 
 async function getAgilityContent() {
+  const languageCode = agilityConfig.languageCode;
+  const channelName = agilityConfig.channelName;
+  const isPreview = agilityConfig.isPreviewMode;
 
-	const languageCode = agilityConfig.languageCode
-	const channelName = agilityConfig.channelName
-	const isPreview = agilityConfig.isPreviewMode
+  if (isPreview) {
+    console.log("Agility CMS => Building site in preview mode.");
+  } else {
+    console.log("Agility CMS => Building site in live mode.");
+  }
 
-	if (isPreview) {
-		console.log("Agility CMS => Building site in preview mode.")
-	} else {
-		console.log("Agility CMS => Building site in live mode.")
-	}
+  const syncClient = getSyncClient({ isPreview });
 
+  let sitemap = await syncClient.store.getSitemap({
+    channelName,
+    languageCode,
+  });
 
-    const syncClient = getSyncClient({isPreview})
+  if (!sitemap) {
+    console.warn(
+      "Agility CMS => No Sitemap Found - try running a sync (npm run cms-pull)"
+    );
+  }
 
-	let sitemap = await syncClient.store.getSitemap({ channelName, languageCode })
+  let pages = [];
+  for (const key in sitemap) {
+    let node = sitemap[key];
 
-	if (! sitemap) {
-		console.warn("Agility CMS => No Sitemap Found - try running a sync (npm run cms-pull)")
-	}
+    if (node.isFolder || node.redirect) {
+      continue;
+    }
 
-	let pages = []
-	for (const key in sitemap) {
+    //get the page for this sitemap object
+    let agilitypage = await syncClient.store.getPage({
+      pageID: node.pageID,
+      languageCode,
+      contentLinkDepth: 3,
+    });
 
-		let node = sitemap[key]
+    //the first page in the sitemap is always the home page
+    if (pages.length === 0) {
+      node.path = "/";
+    }
 
-		if (node.isFolder || node.redirect) {
-			continue
-		}
+    agilitypage.sitemapNode = node;
 
-		//get the page for this sitemap object
-		let agilitypage = await syncClient.store.getPage({pageID: node.pageID, languageCode, contentLinkDepth: 3})
+    //resolve the page template
+    if (agilitypage.templateName !== undefined && agilitypage.templateName) {
+      agilitypage.templateFileName = `${agilitypage.templateName
+        .replace(/ /gi, "-")
+        .toLowerCase()}`;
+    }
 
+    //if this is a dynamic page item, get the content for it
+    agilitypage.dynamicPageItem = null;
+    if (node.contentID !== undefined && node.contentID > 0) {
+      const dynamicPageItem = await syncClient.store.getContentItem({
+        contentID: node.contentID,
+        languageCode,
+        contentLinkDepth: 2,
+      });
 
-		//the first page in the sitemap is always the home page
-		if (pages.length === 0) {
-			node.path = "/"
-		}
+      if (dynamicPageItem) {
+        agilitypage.title = dynamicPageItem.fields.title;
+        if (dynamicPageItem.seo) {
+          agilitypage.seo.metaDescription = dynamicPageItem.seo.metaDescription;
+          agilitypage.seo.metaKeywords = dynamicPageItem.seo.metaDescription;
+        }
 
-		agilitypage.sitemapNode = node;
+        if (dynamicPageItem.properties.definitionName === "Post") {
+          // dynamic page item category
+          dynamicPageItem.category =
+            dynamicPageItem.fields?.category?.fields.title || "Uncategorized";
 
-		//resolve the page template
-		if (agilitypage.templateName !== undefined && agilitypage.templateName) {
-			agilitypage.templateFileName = `${agilitypage.templateName.replace(/ /ig, '-').toLowerCase()}`
-		}
+          // dynamic page item formatted date
+          dynamicPageItem.date = new Date(
+            dynamicPageItem.fields.date
+          ).toLocaleDateString();
 
+          // if we have an image field, use it as seo og:image
+          if (dynamicPageItem.fields.image) {
+            agilitypage.seo.ogImage = `${dynamicPageItem.fields.image.url}?w=1024`;
+          }
+        }
 
-		//if this is a dynamic page item, get the content for it
-		agilitypage.dynamicPageItem = null
-		if (node.contentID !== undefined && node.contentID > 0) {
-			const dynamicPageItem = await syncClient.store.getContentItem({ contentID: node.contentID, languageCode, contentLinkDepth: 2 })
+        agilitypage.dynamicPageItem = dynamicPageItem;
+      }
+    }
 
+    pages.push(agilitypage);
+  }
 
-			if (dynamicPageItem) {
-				agilitypage.title = dynamicPageItem.fields.title
-				if (dynamicPageItem.seo) {
-					agilitypage.seo.metaDescription = dynamicPageItem.seo.metaDescription
-				}
-
-				if (dynamicPageItem.properties.definitionName === "Post") {
-
-					dynamicPageItem.tagNames = dynamicPageItem.fields.tags.map(p => p.fields.title).join(",")
-					dynamicPageItem.dateStr =  luxon.DateTime.fromISO(dynamicPageItem.fields.date).toFormat("LLLL dd, yyyy")
-
-					if (dynamicPageItem.fields.image) {
-						agilitypage.seo.ogImage =  `${dynamicPageItem.fields.image.url}?w=1024`
-					}
-				}
-
-				agilitypage.dynamicPageItem = dynamicPageItem
-
-			}
-
-		}
-
-		pages.push(agilitypage)
-
-	}
-
-    return pages
+  return pages;
 }
 
 // export for 11ty

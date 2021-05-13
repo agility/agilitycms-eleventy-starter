@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{{ agilitypage.title }} - {{global.globalHeader.fields.siteName}}</title>
+    <title>{{ agilitypage.title }} | My Travel Blog</title>
     <meta charset="UTF-8"/>
-	<meta name="cms" content="Agility CMS" />
-	<meta name="description" content="{{agilitypage.seo.metaDescription}}"/>
+	  <meta name="generator" content="Agility CMS" />
+	  <meta name="description" content="{{agilitypage.seo.metaDescription}}"/>
+    <meta name="keywords" content="{{agilitypage.seo.metaKeywords}}"/>
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
     {% if agilitypage.seo.ogImage %}
-		<meta property="og:image" content="{{agilitypage.seo.ogImage}}" />
+		  <meta property="og:image" content="{{agilitypage.seo.ogImage}}" />
     {% endif %}
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"/>
 	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 	<link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"/>
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
   </head>
   <body>
-	{% if global.isPreview %}
-		{% include "./agility/preview-bar.njk" %}
-	{% endif %}
-	{% include "./shared/header.njk" %}
-	{% include agilitypage.templateFileName + ".njk" %}
-	{% include "./shared/footer.njk" %}
-
+  {% include "./common/preview-bar.njk" %}
+  <div class="flex flex-col min-h-screen">
+    {% include "./common/SiteHeader.njk" %}
+    <main class="flex-grow">
+      {% include "./agility-pageTemplates/" + agilitypage.templateFileName + ".njk" %}
+    </main>
+    {% include "./common/SiteFooter.njk" %}
+  </div>
   </body>
 </html>

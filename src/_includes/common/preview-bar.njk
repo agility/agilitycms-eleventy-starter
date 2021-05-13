@@ -1,0 +1,73 @@
+<div class="bg-agility relative px-8 text-gray-200">
+  <div class="flex justify-between items-center max-w-screen-xl mx-auto">
+    <div class="flex items-center">
+      <span class="p-2 rounded-lg mr-4">
+        <a
+          href="https://www.agilitycms.com"
+          target="_blank"
+          rel="noreferrer"
+          title="Agility CMS"
+        >
+          <img
+            src="https://static.agilitycms.com/brand/agility-triangle-yellow.svg"
+            alt="Agility CMS"
+            class="w-5 h-5 block md:hidden"
+          />
+          <img
+            src="/agility-preview-logo.svg"
+            alt="Agility CMS"
+            class="h-5 w-20 hidden md:block"
+          />
+        </a>
+      </span>
+      <div class="mr-4">
+        <a
+          href="https://help.agilitycms.com/hc/en-us"
+          target="_blank"
+          rel="noreferrer"
+          title="Help Center"
+        >
+          <div class="flex items-center">
+              {% FontAwesomeIcon
+                name = "info-circle",
+                type = "solid",
+                class = "mr-2",
+                style = "font-size: 16px"
+            %}
+            <p class="hidden md:block text-sm">Help Center</p>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a
+          href="https://github.com/agility/agilitycms-gatsby-starter"
+          target="_blank"
+          rel="noreferrer"
+          title="View on GitHub"
+          class="text-2xl"
+        >
+          <div class="flex items-center">
+          {% FontAwesomeIcon
+                name = "github",
+                type = "brand",
+                class = "mr-2",
+                style = "font-size: 16px"
+            %}
+            <p class="hidden md:block text-sm">View on GitHub</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="py-4">
+      {% if global.isPreview %}
+        <p className="text-xs md:text-base">
+          Previewing <span className="font-bold">Latest</span> Changes
+        </p>
+      {% else %}
+        <p>
+          Viewing <span className="font-bold">Published</span> Content
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
