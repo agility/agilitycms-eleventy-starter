@@ -99,5 +99,3 @@ It's being used in a couple places to hide/show the mobile menu and the preview 
 Amazing that you've gotten this far!  Keep learning with me ([Joel Varty](https://twitter.com/joelvarty)) or the rest of the Agility CMS team.
 
 [Join us on Slack](https://join.slack.com/t/agilitycommunity/shared_invite/enQtNzI2NDc3MzU4Njc2LWI2OTNjZTI3ZGY1NWRiNTYzNmEyNmI0MGZlZTRkYzI3NmRjNzkxYmI5YTZjNTg2ZTk4NGUzNjg5NzY3OWViZGI) to answer questions and provide feedback directly to the team.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fagility%2Fagilitycms-eleventy-starter)
