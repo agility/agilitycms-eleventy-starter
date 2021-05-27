@@ -66,8 +66,8 @@ When running your site in `production` mode, you will see the published from the
 
 ## Deploying Your Site
 
-[Deploying your Eleventy site to Netlify](https://help.agilitycms.com/hc/en-us/articles/360061532771)
-[Deploying your Eleventy site to Vercel](https://help.agilitycms.com/hc/en-us/articles/360061536891)
+- [Deploying your Eleventy site to Netlify](https://help.agilitycms.com/hc/en-us/articles/360061532771)
+- [Deploying your Eleventy site to Vercel](https://help.agilitycms.com/hc/en-us/articles/360061536891)
 
 ## Notes
 
@@ -78,8 +78,8 @@ To create a new Page Module, create a new Nunjuck template within the `/src/incl
 To create a new Page Templates, create a new Nunjuck template within the `/src/includes/agility-pageTemplates` directory.
 
 ### How to Preview Content
-[How to Set Up a Preview Deployment with Netlify](https://help.agilitycms.com/hc/en-us/articles/360061064432)
-[How to Set Up a Preview Deployment with Vercel](https://help.agilitycms.com/hc/en-us/articles/360061588511)
+- [How to Set Up a Preview Deployment with Netlify](https://help.agilitycms.com/hc/en-us/articles/360061064432)
+- [How to Set Up a Preview Deployment with Vercel](https://help.agilitycms.com/hc/en-us/articles/360061588511)
 
 ## Resources
 
