@@ -1,11 +1,12 @@
 {
-  "name": "agility-cms-11ty-starer",
+  "name": "agility-cms-11ty-starter",
   "version": "1.0.0",
   "description": "A blog with 11th with content from Agility CMS",
   "main": "index.js",
   "scripts": {
     "clean:cms": "node agility/agility.sync.js clear",
     "clean:files": "del _site",
+    "start:files": "mkdir -p ./_site",
     "dev:cms": "NODE_ENV=development node agility/agility.sync.js sync",
     "dev:css": "NODE_ENV=production postcss src/css/index.css -o _site/styles.css",
     "dev:11ty": "NODE_ENV=development eleventy",
@@ -16,7 +17,7 @@
     "start:11ty": "NODE_ENV=development eleventy --serve --watch",
     "clean": "run-p clean:* --print-label",
     "dev": "run-s clean:files dev:* --print-label",
-    "start": "npm-run-all clean:files dev:cms --parallel start:*",
+    "start": "npm-run-all clean:files dev:cms start:files --parallel start:*",
     "build": "run-s clean:files build:* --print-label"
   },
   "author": "Joel Varty",

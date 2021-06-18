@@ -1,4 +1,5 @@
 # Agility CMS & Eleventy Starter
+
 This is sample Eleventy starter site that uses Agility CMS and aims to be a foundation for building fully static sites using Eleventy and Agility CMS.
 
 [Live Website Demo]()
@@ -38,17 +39,16 @@ When running your site in `development` mode, you will see the latest content in
 #### yarn
 
 1. `yarn install`
-2. `yarn dev`
+2. `yarn start`
 
 To clear your content cache locally, run `yarn clean`
 
 #### npm
 
 1. `npm install`
-2. `npm run dev`
+2. `npm run start`
 
 To clear your content cache locally, run `npm run clean`
-
 
 ### Production Mode
 
@@ -57,12 +57,12 @@ When running your site in `production` mode, you will see the published from the
 #### yarn
 
 1. `yarn build`
-2. `npx http-server dist`
+2. `npx http-server _site`
 
 #### npm
 
 1. `npm run build`
-2. `npx http-server dist`
+2. `npx http-server _site`
 
 ## Deploying Your Site
 
@@ -72,30 +72,37 @@ When running your site in `production` mode, you will see the published from the
 ## Notes
 
 ### How to Register Page Modules
+
 To create a new Page Module, create a new Nunjuck template within the `/src/includes/agility-pageModules` directory.
 
 ### How to Register Page Modules
+
 To create a new Page Templates, create a new Nunjuck template within the `/src/includes/agility-pageTemplates` directory.
 
 ### How to Preview Content
+
 - [How to Set Up a Preview Deployment with Netlify](https://help.agilitycms.com/hc/en-us/articles/360061064432)
 - [How to Set Up a Preview Deployment with Vercel](https://help.agilitycms.com/hc/en-us/articles/360061588511)
 
 ## Resources
 
 ### Agility CMS
+
 - [Official site](https://agilitycms.com)
 - [Documentation](https://help.agilitycms.com/hc/en-us)
 
 ### Eleventy
+
 - [Official site](https://www.11ty.dev/)
 - [Documentation](https://www.11ty.dev/docs/)
 
 ### Tailwind CSS
+
 - [Official site](http://tailwindcss.com/)
 - [Documentation](http://tailwindcss.com/docs)
 
 ### Community
+
 - [Official Slack](https://join.slack.com/t/agilitycommunity/shared_invite/enQtNzI2NDc3MzU4Njc2LWI2OTNjZTI3ZGY1NWRiNTYzNmEyNmI0MGZlZTRkYzI3NmRjNzkxYmI5YTZjNTg2ZTk4NGUzNjg5NzY3OWViZGI)
 - [Blog](https://agilitycms.com/resources/posts)
 - [GitHub](https://github.com/agility)
@@ -104,4 +111,5 @@ To create a new Page Templates, create a new Nunjuck template within the `/src/i
 - [Twitter](https://twitter.com/AgilityCMS)
 
 ## Feedback and Questions
+
 If you have feedback or questions about this starter, please use the [Github Issues](https://github.com/agility/agilitycms-eleventy-starter/issues) on this repo, join our [Community Slack Channel](https://join.slack.com/t/agilitycommunity/shared_invite/enQtNzI2NDc3MzU4Njc2LWI2OTNjZTI3ZGY1NWRiNTYzNmEyNmI0MGZlZTRkYzI3NmRjNzkxYmI5YTZjNTg2ZTk4NGUzNjg5NzY3OWViZGI) or create a post on the [Agility Developer Community](https://help.agilitycms.com/hc/en-us/community/topics).
