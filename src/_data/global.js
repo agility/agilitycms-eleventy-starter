@@ -22,7 +22,7 @@ async function getAgilityContent() {
 
   // get header
   let header = await agility.getContentList({
-    referenceName: "SiteHeader",
+    referenceName: "siteheader",
     languageCode,
   });
 

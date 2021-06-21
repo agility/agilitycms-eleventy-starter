@@ -4,7 +4,7 @@ const isDev = process.env.NODE_ENV === "development";
 
 module.exports = function (eleventyConfig) {
   // Copy static files directly to output.
-  eleventyConfig.addPassthroughCopy({ "src/assets": "/" });
+  eleventyConfig.addPassthroughCopy({ "src/assets": "/assets" });
 
   // set up fontawesome
   eleventyConfig.addNunjucksShortcode("FontAwesomeIcon", FontAwesomeIcon);
@@ -17,7 +17,7 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: "src",
-      output: "dist",
+      output: "_site",
     },
     passthroughFileCopy: true,
   };
